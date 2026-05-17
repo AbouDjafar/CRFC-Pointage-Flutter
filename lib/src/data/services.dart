@@ -92,7 +92,7 @@ class EmployeeImportService {
   Future<ImportedEmployeeBatch?> pickAndImport(
     List<Employee> existingEmployees,
   ) async {
-    final result = await FilePicker.platform.pickFiles(
+    final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['xlsx', 'xls'],
       withData: true,
@@ -434,9 +434,7 @@ class ExportService {
   }
 
   Future<void> shareManagedFile(ManagedFile file) async {
-    await SharePlus.instance.share(
-      ShareParams(files: [XFile(file.path)], text: file.name),
-    );
+    await Share.shareXFiles([XFile(file.path)], text: file.name);
   }
 
   Future<Directory> _ensureDirectory(String name) async {
