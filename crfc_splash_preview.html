@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CRFC Pointage — Splash</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1E3A5F 0%, #2A5298 100%);
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+  }
+
+  /* Cercles décoratifs d'ambiance */
+  .circle-deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.06);
+    animation: breathe 6s ease-in-out infinite;
+  }
+  .c1 { width: 600px; height: 600px; bottom: -200px; right: -200px; }
+  .c2 { width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: 1s; }
+  .c3 { width: 200px; height: 200px; bottom: 0;      right: 0;      animation-delay: 2s; }
+  .c4 { width: 500px; height: 500px; top: -200px;    left: -200px; animation-delay: 0.5s; }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%       { opacity: 0.7; transform: scale(1.03); }
+  }
+
+  /* Conteneur principal */
+  .splash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Logo */
+  .logo-wrapper {
+    position: relative;
+    width: 140px; height: 140px;
+    margin-bottom: 32px;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35));
+  }
+
+  .logo-wrapper svg {
+    width: 100%; height: 100%;
+  }
+
+  /* Anneau animé autour du logo */
+  .ring {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, rgba(249,115,22,0.6), transparent 60%) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    animation: rotateSlow 8s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Texte CRFC */
+  .brand-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: 10px;
+    color: #ffffff;
+    line-height: 1;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    animation: fadeInUp 0.9s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* Ligne séparatrice orange */
+  .separator {
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #F97316, transparent);
+    margin: 14px auto;
+    border-radius: 2px;
+    animation: expandLine 0.7s 0.5s ease forwards;
+  }
+
+  @keyframes expandLine {
+    from { width: 0; opacity: 0; }
+    to   { width: 160px; opacity: 0.85; }
+  }
+
+  /* Sous-titre POINTAGE */
+  .tagline {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 7px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    animation: fadeInUp 0.9s 0.3s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* Barre de chargement en bas */
+  .loader-container {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: fadeIn 0.5s 0.8s ease both;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .loader-track {
+    width: 160px; height: 2px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .loader-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #F97316, #FBBF24);
+    border-radius: 2px;
+    animation: loadProgress 2.2s 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    width: 0;
+  }
+
+  @keyframes loadProgress {
+    0%   { width: 0%; }
+    60%  { width: 75%; }
+    85%  { width: 88%; }
+    100% { width: 100%; }
+  }
+
+  .loader-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+
+  /* Simulateur téléphone autour (optionnel pour prévisualisation) */
+  .phone-frame {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    background: linear-gradient(135deg, #1E3A5F 0%, #2A5298 100%);
+    border-radius: 48px;
+    box-shadow:
+      0 0 0 2px rgba(255,255,255,0.08),
+      0 0 0 10px #0d1f36,
+      0 40px 80px rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Notch */
+  .notch {
+    position: absolute;
+    top: 12px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 34px;
+    background: #0d1f36;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  /* Barre de statut simulée */
+  .status-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 28px 8px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="notch"></div>
+
+  <!-- Cercles déco -->
+  <div class="circle-deco c1"></div>
+  <div class="circle-deco c2"></div>
+  <div class="circle-deco c3"></div>
+  <div class="circle-deco c4"></div>
+
+  <!-- Contenu splash -->
+  <div class="splash">
+
+    <div class="logo-wrapper">
+      <div class="ring"></div>
+      <!-- Logo SVG inline -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <defs>
+          <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   style="stop-color:#ffffff;stop-opacity:0.15"/>
+            <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05"/>
+          </linearGradient>
+          <linearGradient id="ogG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   style="stop-color:#F97316"/>
+            <stop offset="100%" style="stop-color:#EA580C"/>
+          </linearGradient>
+          <filter id="sh">
+            <feDropShadow dx="0" dy="2" stdDeviation="4"
+                          flood-color="#0A1628" flood-opacity="0.3"/>
+          </filter>
+          <clipPath id="rc">
+            <rect x="40" y="40" width="320" height="320" rx="72"/>
+          </clipPath>
+        </defs>
+        <!-- Fond blanc translucide arrondi -->
+        <rect x="40" y="40" width="320" height="320" rx="72"
+              fill="url(#bgG)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+        <!-- Silhouette humaine -->
+        <g filter="url(#sh)" transform="translate(200,172)">
+          <circle cx="0" cy="-54" r="26" fill="#ffffff"/>
+          <path d="M-42 10 Q-42 -22 0 -22 Q42 -22 42 10 L42 32 Q42 44 30 44 L-30 44 Q-42 44 -42 32 Z"
+                fill="#ffffff"/>
+        </g>
+        <!-- Badge check orange -->
+        <circle cx="258" cy="230" r="28" fill="url(#ogG)" filter="url(#sh)"/>
+        <polyline points="246,230 254,240 272,218"
+                  fill="none" stroke="#ffffff" stroke-width="4"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Texte CRFC -->
+        <text x="200" y="305"
+              font-family="Georgia, serif" font-size="48" font-weight="700"
+              letter-spacing="8" text-anchor="middle" fill="#ffffff">CRFC</text>
+        <!-- Séparateur -->
+        <line x1="125" y1="318" x2="275" y2="318"
+              stroke="#F97316" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+        <!-- Sous-titre -->
+        <text x="200" y="342"
+              font-family="Georgia, serif" font-size="15" font-weight="400"
+              letter-spacing="5" text-anchor="middle" fill="rgba(255,255,255,0.7)">POINTAGE</text>
+      </svg>
+    </div>
+
+    <div class="brand-name">CRFC</div>
+    <div class="separator"></div>
+    <div class="tagline">Pointage</div>
+
+  </div>
+
+  <!-- Loader bas -->
+  <div class="loader-container">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+    <div class="loader-label">Chargement…</div>
+  </div>
+
+</div>
+
+</body>
+</html>
